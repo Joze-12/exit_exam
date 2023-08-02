@@ -44,6 +44,11 @@ INSTALLED_APPS = [
     "resources",
     "forum",
     "users",
+
+    # Third party
+    "ckeditor",
+    "ckeditor_uploader",
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
