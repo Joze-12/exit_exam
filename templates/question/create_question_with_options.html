@@ -4,75 +4,82 @@
 {% block content %}
 
 <form method="post" novalidate>
-    {% csrf_token %}
-    <div class="mb-3">
-      {{ question_form.media}}
-      {{ question_form.question_text}}
-    </div>
-    <div class="mb-3">
-      <button type="button" id="add-option-btn" class="btn btn-primary">Add Option</button>
-    </div>
-    <div id="option-formset">
-    </div>
-    <div class="mb-3">
-      <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
-    </div>
-  </form>
-  
-  {% if errors %}
-  <div class="alert alert-danger">
-    <ul>
-      {% for error in errors %}
-      <li>{{ error }}</li>
-      {% endfor %}
-    </ul>
+  {% csrf_token %}
+  {{ option_formset.management_form }}
+  <div class="mb-3">
+    {{ question_form.media }}
+    {{ question_form.question_text }}
   </div>
-  {% endif %}
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const addOptionBtn = document.getElementById('add-option-btn');
-      const optionFormset = document.getElementById('option-formset');
-      const submitBtn = document.getElementById('submit-btn');
-  
-      let optionCount = {{ option_formset|length }};
-  
-      addOptionBtn.addEventListener('click', function() {
-        const newOptionHTML = `
-          <div class="mb-3">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="selected_option" value="${optionCount}">
-              <input type="text" name="form-${optionCount}-value" class="form-control">
-            </label>
-            <button type="button" class="btn btn-danger btn-sm remove-option-btn"><i class="bi bi-trash"></i></button>
-          </div>
-        `;
-        const newOptionDiv = document.createElement('div');
-        newOptionDiv.innerHTML = newOptionHTML;
-        optionFormset.appendChild(newOptionDiv);
-        optionCount++;
-      });
-  
-      optionFormset.addEventListener('click', function(event) {
-        if (event.target.classList.contains('remove-option-btn')) {
-          event.target.closest('.mb-3').remove();
-        }
-      });
-  
-      submitBtn.addEventListener('click', function(event) {
-        const selectedOptions = document.querySelectorAll('input[name="selected_option"]:checked').length;
-        const optionsCount = document.querySelectorAll('input[name^="form-"]').length;
-  
-        if (selectedOptions < 1 || optionsCount < 2) {
-          event.preventDefault();
-          const errorDiv = document.createElement('div');
-          errorDiv.className = "alert alert-danger mt-3";
-          errorDiv.innerHTML = "<ul><li>Please select at least one option and add at least two options.</li></ul>";
-          document.querySelector('form').appendChild(errorDiv);
-        }
-      });
-    });
-  </script>
+  <div class="mb-3">
+    <button type="button" id="add-option-btn" class="btn btn-primary">Add Option</button>
+  </div>
+  <div id="option-formset">
+      
 
+      <input type="hidden" name="{{ option_formset.prefix }}-TOTAL_FORMS" id="{{ option_formset.prefix }}-TOTAL_FORMS" value="{{ option_formset|length }}">
+
+  </div>
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+  </div>
+</form>
+
+{% if errors %}
+<div class="alert alert-danger">
+  <ul>
+    {% for error in errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const addOptionBtn = document.getElementById('add-option-btn');
+    const optionFormset = document.getElementById('option-formset');
+    const submitBtn = document.getElementById('submit-btn');
+
+    let optionCount = {{ option_formset|length }};
+
+    addOptionBtn.addEventListener('click', function() {
+      const newOptionHTML = `
+        <div class="mb-3">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="selected_option" value="${optionCount}">
+            <input type="text" name="form-${optionCount}-value" class="form-control">
+          </label>
+          <button type="button" class="btn btn-danger btn-sm remove-option-btn"><i class="bi bi-trash"></i></button>
+        </div>
+      `;
+      const newOptionDiv = document.createElement('div');
+      newOptionDiv.innerHTML = newOptionHTML;
+      optionFormset.appendChild(newOptionDiv);
+      optionCount++;
+
+      const totalFormsInput = document.getElementById('{{ option_formset.prefix }}-TOTAL_FORMS');
+      totalFormsInput.value = optionCount;
+    });
+
+    optionFormset.addEventListener('click', function(event) {
+      if (event.target.classList.contains('remove-option-btn')) {
+        event.target.closest('.mb-3').remove();
+      }
+    });
+
+    submitBtn.addEventListener('click', function(event) {
+      const selectedOptions = document.querySelectorAll('input[name="selected_option"]:checked').length;
+      const optionsCount = document.querySelectorAll('input[name^="form-"]').length;
+
+      if (selectedOptions < 1 || optionsCount < 2) {
+        event.preventDefault();
+        const errorDiv = document.createElement('div');
+        errorDiv.className = "alert alert-danger mt-3";
+        errorDiv.innerHTML = "<ul><li>Please select at least one option and add at least two options.</li></ul>";
+        document.querySelector('form').appendChild(errorDiv);
+      }
+    });
+  });
+</script>
 {% endblock content %}
 

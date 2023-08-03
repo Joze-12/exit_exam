@@ -8,16 +8,21 @@ def create_question_with_options(request, default=None):
     if request.method == "POST":
         question_form = QuestionForm(request.POST)
         option_formset = OptionFormset(request.POST)
-        if option_formset.is_valid():
+
+        print(int(request.POST.get("selected_option")))
+        if question_form.is_valid() and option_formset.is_valid():
             question = question_form.save()
-            selected_option_pk = request.POST.get("selected_option")
-            
-            for form in option_formset:
-                    option = form.save(commit=False)
-                    option.question = question
-                    if selected_option_pk:
-                        option.is_correct = option.pk == int(selected_option_pk)
-                    option.save()
+            i = 1
+            for form in option_formset.forms:
+                    if form.cleaned_data.get("value") is None:
+                        continue
+                    else:
+                        option = form.save(commit=False)
+                        option.question = question
+                        if int(request.POST.get("selected_option")) == i:
+                            option.is_correct = True
+                        option.save()
+                        i+=1
             return redirect("questions_list")   
     else:
         question_form = QuestionForm(request.GET or None)
@@ -34,4 +39,7 @@ def create_question_with_options(request, default=None):
     
 def list_questions(request):
     questions = Question.objects.all()
-    return render(request, "question/questions_list", questions)
+    context = {
+        "questions": questions
+    }
+    return render(request, "question/questions_list.html", context)
