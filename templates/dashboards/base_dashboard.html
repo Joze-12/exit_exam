@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Top Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-white">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="{% static '/assets/img/micro_logo.jpeg' %}" alt="MicroLink Logo" width="40" height="40" class="d-inline-block align-top">
+      <span class="text-dark align-middle">MicroLink Information Technology College</span>
+    </a>
+    {% if request.user.is_authenticated %}
+      <div class="ml-auto">
+        <div class="d-flex align-items-center">
+          <img src="{{ request.user.profile.image.url }}" alt="Avatar" width="30" height="30" class="d-inline-block rounded-circle mr-2">
+          <div>
+            <span class="text-dark d-block">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+            <span class="text-secondary d-block">{{ request.user.role }}</span>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</nav>
+
+<!-- Side Navigation Menu -->
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-md-block sidebar collapse" id="sidebarCollapse">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          
+          {% block sidebar_items %}{% endblock sidebar_items %}
+          <li class="nav-item logout-link">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <span><i class="bi bi-box-arrow-left h5"></i></span>
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-10 bg-light">
+      <div class="container-fluid">
+        <!-- Main Content -->
+        <div class="content-wrapper">
+          {% block main_content %}
+          <!-- Add your page-specific content here -->
+          {% endblock %}
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="bg-white">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10 offset-md-2">
+        <div class="content-wrapper text-center">
+          <p class="mt-1">&copy; 2023 MicroLink Information Technology College</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% endblock content %}

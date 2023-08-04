@@ -6,6 +6,7 @@ urlpatterns = [
     path("need-approval-url/", not_approved_view, name="not_approved"),
     path("inactive-user/", inactive_user_view, name="inactive_user"),
     path("change-password/", change_password, name="change_password"),
-    path("login/", login_view, name="login")
-    path("dashboard/", dashboard_render,name="dashboard_url")
+    path("login/", login_view, name="login"),
+    path("student-sign-up/", student_signup_view, name="student_sign_up"),
+    path("dashboard/", dashboard_render,name="dashboard_url"),
 ]

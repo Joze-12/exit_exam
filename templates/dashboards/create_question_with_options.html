@@ -3,6 +3,8 @@
 
 {% block content %}
 
+
+
 <form method="post" novalidate>
   {% csrf_token %}
   {{ option_formset.management_form }}
@@ -21,6 +23,7 @@
   </div>
   <div class="mb-3">
     <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+    <button type="submit" class="btn btn-secondary" id="add-more-question-btn" name="add_more_question" value="0">Add More Question</button>
   </div>
 </form>
 
@@ -31,7 +34,7 @@
     <li>{{ error }}</li>
     {% endfor %}
   </ul>
-</div>
+</div> 
 {% endif %}
 
 <script>
@@ -39,18 +42,17 @@
     const addOptionBtn = document.getElementById('add-option-btn');
     const optionFormset = document.getElementById('option-formset');
     const submitBtn = document.getElementById('submit-btn');
+    const addMoreQuestionBtn = document.getElementById("add-more-question-btn")
 
     let optionCount = {{ option_formset|length }};
 
     addOptionBtn.addEventListener('click', function() {
       const newOptionHTML = `
-        <div class="mb-3">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="selected_option" value="${optionCount}">
-            <input type="text" name="form-${optionCount}-value" class="form-control">
-          </label>
-          <button type="button" class="btn btn-danger btn-sm remove-option-btn"><i class="bi bi-trash"></i></button>
-        </div>
+        <div class="mb-3 d-flex align-items-center">
+          <input type="radio" class="form-check-input me-2" name="selected_option" value="${optionCount}">
+          <input type="text" name="form-${optionCount}-value" class="form-control me-2">
+          <button type="button" class="btn btn-danger btn-sm">Remove</button>
+      </div>
       `;
       const newOptionDiv = document.createElement('div');
       newOptionDiv.innerHTML = newOptionHTML;
@@ -71,7 +73,7 @@
       const selectedOptions = document.querySelectorAll('input[name="selected_option"]:checked').length;
       const optionsCount = document.querySelectorAll('input[name^="form-"]').length;
 
-      if (selectedOptions < 1 || optionsCount < 2) {
+      if ((selectedOptions < 1) && ((optionsCount - 1) < 2)) {
         event.preventDefault();
         const errorDiv = document.createElement('div');
         errorDiv.className = "alert alert-danger mt-3";
@@ -79,6 +81,20 @@
         document.querySelector('form').appendChild(errorDiv);
       }
     });
+
+    addMoreQuestionBtn.addEventListener('click', function(event){
+      const selectedOptions = document.querySelectorAll('input[name="selected_option"]:checked').length;
+      const optionsCount = document.querySelectorAll('input[name^="form-"]').length;
+
+      if (selectedOptions < 1 || optionsCount < 2) {
+        event.preventDefault();
+        const errorDiv = document.createElement('div');
+        errorDiv.className = "alert alert-danger mt-3";
+        errorDiv.innerHTML = "<ul><li>Please select at least one option and add at least two options.</li></ul>";
+        document.querySelector('form').appendChild(errorDiv);
+      }
+      addMoreQuestionBtn.value = "1";
+    })
   });
 </script>
 {% endblock content %}

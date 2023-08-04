@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     # Third party
     "ckeditor",
     "ckeditor_uploader",
-    'crispy_forms',
+    "crispy_forms",
+    "crispy_bootstrap5",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -140,6 +142,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "users.User"
 CKEDITOR_UPLOAD_PATH = BASE_DIR.joinpath("uploads/")
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 CKEDITOR_CONFIGS = {
     'default': {

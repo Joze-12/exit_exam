@@ -1,0 +1,16 @@
+<div class="list-group-item list-group-item-action">
+    <p>{{ reply.content|safe }}</p>
+    <div class="ml-4">
+      {% for child_reply in reply.get_children %}
+        <div class="list-group-item list-group-item-action">
+          <p>{{ child_reply.content|safe }}</p>
+          <div class="ml-4">
+            {% for nested_reply in child_reply.get_children %}
+              {% include 'reply_thread.html' with reply=nested_reply %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  

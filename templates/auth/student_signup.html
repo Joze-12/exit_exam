@@ -1,0 +1,92 @@
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center mt-3">
+    <div class="text-center">
+        <div class="mb-3">
+            <img src="{% static '/assets/img/micro_logo.jpeg' %}" alt="MicroLink Logo" width="100" height="100">
+        </div>
+        <div class="mb-3">
+            <span class="h4">MicroLink Information Technology College</span>
+        </div>
+        <div class="mb-3 bg-light p-5">
+            <div class="row mb-3">
+                <span class="h2">Sign UP</span>
+            </div>
+            <div class="row mb-3">
+                <form action="{% url 'student_signup' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-person"></i>
+                        </span>
+                        {{ form.error }}
+                        {% render_field form.first_name placeholder="First Name" class+="form-control" %}
+                        
+                        <span class="input-group-text">
+                            <i class="bi bi-person"></i>
+                        </span>
+
+                        {% render_field form.last_name placeholder="Last Name" class+="form-control" %}
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">
+                            <i class="bi bi-person-fill"></i>
+                        </span>
+                        {% render_field form.username  placeholder="Username" class+="form-control"%}
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">
+                            <i class="bi bi-at"></i>
+                        </span>
+                        {% render_field form.email placeholder="Email Address" class+="form-control" %}
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">
+                            <i class="bi bi-lock-fill"></i>
+                        </span>
+                        {% render_field form.password1 placeholder="Password" class+="form-control" id="password1-input"%}
+                        <span class="input-group-text" id="password-toggle" onclick="togglePasswordVisibility('password1-input', 'password1-icon')">
+                            <i id="password1-icon" class="bi bi-eye-fill"></i>
+                        </span>
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">
+                            <i class="bi bi-lock-fill"></i>
+                        </span>
+                        {% render_field form.password2 placeholder="Password" class+="form-control" id="password2-input"%}
+                        <span class="input-group-text" id="password-toggle" onclick="togglePasswordVisibility('password2-input', 'password2-icon')">
+                            <i id="password2-icon" class="bi bi-eye-fill"></i>
+                        </span>
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">
+                            <i class="bi bi-person-vcard"></i>
+                        </span>
+                        {% render_field form.student_id placeholder="Student ID" class+="form-control" %}
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">
+                            <small><b>Program</b></small>
+                        </span>
+                        {% render_field form.program class+="form-control" %}
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">
+                            <small><b>Department</b></small>
+                        </span>
+                        {% render_field form.department class+="form-control" %}
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3 w-100">Sign Up</button>
+                </form>
+            </div>
+            <div class="row">
+                <span>Already have an account? <a href="{% url 'login' %}"> Log In</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %} {% endcomment %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %} {# Load widget tweaks #}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Create New Discussion Post</h1>
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      {% render_field form.topic class="form-control" placeholder="Topic" %} {# Style the topic field #}
+    </div>
+
+    <div class="mb-3">    
+      {% render_field form.content class="form-control" rows="5" placeholder="Content" %} {# Style the content field #}
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Create Post</button>
+  </form>
+</div>
+{% endblock %}

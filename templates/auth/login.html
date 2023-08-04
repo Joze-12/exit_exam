@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+        <div class="mb-3">
+            <img src="{% static '/assets/img/micro_logo.jpeg' %}" alt="MicroLink Logo" width="100" height="100">
+        </div>
+        <div class="mb-3">
+            <span class="h4">MicroLink Information Technology College</span>
+        </div>
+        <div class="mb-3 bg-light p-5">
+            <div class="row mb-3">
+                <span class="h2">Log In</span>
+            </div>
+            <div class="row mb-3">
+                <span class="text-muted">Login here using your username and password</span>
+            </div>
+            <div class="row mb-3">
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-person-fill"></i>
+                        </span>
+                        {% render_field form.username  placeholder="Username" class+="form-control"%}
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">
+                            <i class="bi bi-lock-fill"></i>
+                        </span>
+                        {% render_field form.password placeholder="Password" class+="form-control" id="password-input"%}
+                        <span class="input-group-text" id="password-toggle" onclick="togglePasswordVisibility()">
+                            <i id="password-icon" class="bi bi-eye-fill"></i>
+                        </span>
+                    </div>
+                    <input type="submit" value="Log In" class="btn btn-primary mt-3 w-100">
+                </form>
+            </div>
+            <div class="row">
+                <a href="#" class="col mt-2">Forget Password</a>
+                <a href="{% url 'student_sign_up' %}" class="btn btn-primary col">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password-input");
+        var passwordIcon = document.getElementById("password-icon");
+        
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordIcon.classList.remove("bi-eye-fill");
+            passwordIcon.classList.add("bi-eye-slash-fill");
+        } else {
+            passwordInput.type = "password";
+            passwordIcon.classList.remove("bi-eye-slash-fill");
+            passwordIcon.classList.add("bi-eye-fill");
+        }
+    }
+</script>
+
+{% endblock content %}

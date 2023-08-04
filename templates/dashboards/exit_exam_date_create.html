@@ -1,0 +1,38 @@
+{% extends 'dashboards/base_dashboard.html' %} 
+{% load widget_tweaks %}
+
+{% block user_account_name %}request.user.username{% endblock user_account_name %}
+
+
+{% block sidebar_items %}
+    <li class="nav-item">
+        <a class="nav-link bg-light" href="{% url 'academic_manager_dashboard' %}">
+        <span><i class="bi bi-columns-gap h5"></i></span> 
+        Dashboard
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'department_list' %}">
+        <span><i class="bi bi-building h5"></i></span> 
+        Departments
+        </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'department_heads_list' %}">
+      <span><i class="bi bi-person-square h5"></i></span> 
+      Department Heads
+      </a>
+  </li>
+{% endblock sidebar_items %}
+
+{% block user_account_role %}
+  Academic Manager
+{% endblock user_account_role %}
+
+{% block main_content %}
+<form action="">
+    {% render_field form.exam_date class+="form-control" type="date" %}
+    <button class="btn btn-primary mt-2" type="submit">Save</button>
+</form>
+
+{% endblock %}

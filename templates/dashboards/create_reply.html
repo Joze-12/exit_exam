@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %} {# Load widget tweaks #}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Create Reply</h1>
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <h1 class="card-title">{{ post.topic }}</h1>
+        <p class="card-text">{{ post.content|safe }}</p>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      {% render_field form.content class="form-control" rows="5" placeholder="Your Reply" %} {# Style the content field #}
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Submit Reply</button>
+  </form>
+</div>
+{% endblock %}

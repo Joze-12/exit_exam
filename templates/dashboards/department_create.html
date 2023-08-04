@@ -1,0 +1,69 @@
+{% extends 'dashboards/base_dashboard.html' %} 
+{% load widget_tweaks %}
+
+{% block sidebar_items %}
+    <li class="nav-item">
+        <a class="nav-link bg-light" href="{% url 'academic_manager_dashboard' %}">
+        <span><i class="bi bi-columns-gap h5"></i></span> 
+        Dashboard
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'department_list' %}">
+        <span><i class="bi bi-building h5"></i></span> 
+        Departments
+        </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'department_heads_list' %}">
+      <span><i class="bi bi-person-square h5"></i></span> 
+      Department Heads
+      </a>
+  </li>
+{% endblock sidebar_items %}
+
+{% block main_content %}
+    <h1>Create Department</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <form method="POST">
+              {% csrf_token %}
+      
+              <div class="form-group">
+                {{ form.name.errors }}
+                <label for="{{ form.name.id_for_label }}" class="font-weight-bold">Department Name</label>
+                {% render_field form.name class+="form-control" %}
+              </div>
+      
+              <div class="form-group">
+                <label for="{{ form.description.id_for_label }}" class="font-weight-bold">Description</label>
+                {% render_field form.description class+="form-control" %}
+              </div>
+      
+              <div class="form-group">
+                <label for="{{ form.department_head.id_for_label }}" class="font-weight-bold">Department Head</label>
+                {% render_field form.department_head class+="form-control" %}
+                {{ form.name.errors }}
+              </div>
+      
+              <div class="form-group">
+                <label for="{{ form.exam_date.id_for_label }}" class="font-weight-bold">Exam Date</label>
+                {% render_field form.exam_date class+="form-control" %}
+              </div>
+      
+              <div class="form-group">
+                <label for="{{ form.exam_location.id_for_label }}" class="font-weight-bold">Exam Location</label>
+                {% render_field form.exam_location class+="form-control" %}
+              </div>
+      
+              <div class="text-center mt-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Start Practice</h1>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#questionModal">
+    Start Practice
+</button>
+
+<!-- Question Modal -->
+<div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="questionModalLabel">Enter the number of questions to practice:</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="GET" action="{% url 'fetch_questions' %}">
+                <div class="modal-body">
+                    <input type="number" name="num_questions" class="form-control" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Start Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+    

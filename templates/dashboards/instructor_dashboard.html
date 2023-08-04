@@ -1,0 +1,32 @@
+{% extends 'dashboards/base_dashboard.html' %} 
+
+{% block sidebar_items %}
+    <li class="nav-item">
+        <a class="nav-link bg-light" href="{% url 'questions_list' %}">
+        <span><i class="bi bi-question-square h5"></i></span> 
+        Questions
+        </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'department_heads_list' %}">
+      <span><i class="bi bi-percent h5"></i></i></span> 
+      Students Result
+      </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" >
+    <span><i class="bi bi-archive h5"></i></span> 
+    Resources
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'discussion_list' %}">
+    <span><i class="bi bi-archive h5"></i></span> 
+    Discussion
+    </a>
+</li>
+{% endblock sidebar_items %}
+
+{% block main_content %}
+
+{% endblock %}

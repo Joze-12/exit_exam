@@ -1,0 +1,70 @@
+{% extends 'dashboards/base_dashboard.html' %} 
+{% load widget_tweaks %}
+
+{% block sidebar_items %}
+    <li class="nav-item">
+        <a class="nav-link bg-light" href="{% url 'course_list' %}">
+        <span><i class="bi bi-columns-gap h5"></i></span> 
+        Courses
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'theme_list' %}">
+        <span><i class="bi bi-building h5"></i></span> 
+        Themes
+        </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'instructors_list' %}">
+      <span><i class="bi bi-person-square h5"></i></span> 
+      Instructors
+      </a>
+  </li>
+{% endblock sidebar_items %}
+
+{% block main_content %}
+    <h1>Create Course</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <form method="POST">
+              {% csrf_token %}
+      
+              <div class="form-group">
+                {{ form.course_code.errors }}
+                <label for="{{ form.course_code.id_for_label }}" class="font-weight-bold">Course Code</label>
+                {% render_field form.course_code class+="form-control" %}
+              </div>
+      
+              <div class="form-group">
+                {{ form.course_name.errors }}
+                <label for="{{ form.course_name.id_for_label }}" class="font-weight-bold">Course Name</label>
+                {% render_field form.course_name class+="form-control" %}
+              </div>
+      
+              <div class="form-group">
+                <label for="{{ form.course_description.id_for_label }}" class="font-weight-bold">Description</label>
+                {% render_field form.course_description class+="form-control" %}
+              </div>
+
+              <div class="form-group">
+                <label for="{{ form.instructor.id_for_label }}" class="font-weight-bold">Instructor</label>
+                {% render_field form.instructor class+="form-control" %}
+                {{ form.instructor.errors }}
+              </div>
+      
+              <div class="form-group">
+                <label for="{{ form.department.id_for_label }}" class="font-weight-bold">Department</label>
+                {% render_field form.department class+="form-control" %}
+              </div>
+      
+              <div class="text-center mt-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      
+{% endblock %}

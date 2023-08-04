@@ -552,12 +552,12 @@ class StudentProfile(models.Model):
         FAILD = "FAILD", "Failed"
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    student_id = models.CharField(max_length=20, unique=True)
+    student_id = models.CharField(max_length=20)
     department = models.ForeignKey(
         "academics.Department", on_delete=models.SET_NULL, null=True
     )
     section = models.ForeignKey(
-        "academics.Section", on_delete=models.SET_NULL, null=True
+        "academics.Section", on_delete=models.SET_NULL, null=True, blank=True
     )
     program = models.CharField(
         max_length=15, choices=Program.choices, default=Program.REGULAR
@@ -573,4 +573,4 @@ class StudentProfile(models.Model):
     exam_room = models.ForeignKey(
         "academics.ExamRoom", on_delete=models.SET_NULL, null=True, blank=True
     )
-    rejected = models.BooleanField(default=True)
+    rejected = models.BooleanField(default=False)

@@ -1,0 +1,32 @@
+{% extends 'dashboards/base_dashboard.html' %} 
+
+{% block sidebar_items %}
+    <li class="nav-item">
+        <a class="nav-link" href="">
+        <span><i class="bi bi-columns-gap h5"></i></span> 
+        Questions
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'department_list' %}">
+        <span><i class="bi bi-building h5"></i></span> 
+        Resources
+        </a>
+    </li>
+  <li class="nav-item">
+    <a class="nav-link" href="">
+    <span><i class="bi bi-person-square h5"></i></span> 
+    Profile
+    </a>
+    </li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'discussion_list' %}">
+    <span><i class="bi bi-person-square h5"></i></span> 
+    Discussion Forum
+    </a>
+</li>
+{% endblock sidebar_items %}
+
+{% block main_content %}
+
+{% endblock %}

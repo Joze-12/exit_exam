@@ -12,13 +12,13 @@ class CustomBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
         user = super().authenticate(request, username, password, **kwargs)
         if user and user.is_student() and user.studentprofile.rejected:
-            return redirect("not_accepted_url")
+            return "not_accepted"
         elif user and user.is_student() and not user.studentprofile.approved:
-            return redirect('need_approval_url')  # Redirect to the "need_approval" page
+            return "not_approved" # Redirect to the "need_approval" page
         elif user and not user.is_active:
-            return redirect('inactive_user_url')  # Redirect to the "inactive_user" page
+            return "inactive"  # Redirect to the "inactive_user" page
         elif user and not user.password_changed:
-            return redirect('change_password_url')  # Redirect to the change password page
+            return "password_change"  # Redirect to the change password page
         return user
     
 

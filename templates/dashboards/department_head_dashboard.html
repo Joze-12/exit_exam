@@ -1,0 +1,32 @@
+{% extends 'dashboards/base_dashboard.html' %} 
+
+{% block sidebar_items %}
+    <li class="nav-item">
+        <a class="nav-link bg-light" href="{% url 'course_list' %}">
+        <span><i class="bi bi-columns-gap h5"></i></span> 
+        Courses
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'theme_list' %}">
+        <span><i class="bi bi-building h5"></i></span> 
+        Themes
+        </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'instructors_list' %}">
+      <span><i class="bi bi-person-square h5"></i></span> 
+      Instructors
+      </a>
+  </li>
+{% endblock sidebar_items %}
+
+{% block user_account_role %}
+  Department Head
+{% endblock user_account_role %}
+
+{% block main_content %}
+
+{% include "academics/course/course_list.html" %}
+
+{% endblock %}

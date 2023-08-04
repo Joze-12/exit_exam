@@ -60,11 +60,11 @@ class Department(models.Model):
 
 
 class Section(models.Model):
-    section_text = models.CharField(max_length=10)
+    section_value = models.CharField(max_length=10, null=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.section_text
+        return self.section_value
 
     # Custom getter for section_text field
     @property

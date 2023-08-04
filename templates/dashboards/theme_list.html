@@ -1,0 +1,63 @@
+{% extends 'dashboards/base_dashboard.html' %} 
+
+{% block sidebar_items %}
+    <li class="nav-item">
+        <a class="nav-link bg-light" href="{% url 'course_list' %}">
+        <span><i class="bi bi-columns-gap h5"></i></span> 
+        Courses
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'theme_list' %}">
+        <span><i class="bi bi-building h5"></i></span> 
+        Themes
+        </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'instructors_list' %}">
+      <span><i class="bi bi-person-square h5"></i></span> 
+      Instructors
+      </a>
+  </li>
+{% endblock sidebar_items %}
+
+{% block main_content %}
+  <h4>Themes</h4>
+
+  <div class="container bg-white p-3 mt-2">
+    <div class="row mb-3">
+      <h5 class="col-9">Themes</h5>
+      <div class="col-3 justify-content-end">
+        <a class="btn btn-primary" href="{% url 'create_theme' %}"><i class="bi bi-plus-lg fs-6"></i> Add Theme</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <table class="table table-striped">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Theme Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Course</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for theme in themes %}
+            <tr scope="row">
+              <td>{{ theme.pk }}</td>
+              <td>{{ theme.name }}</td>
+              <td>{{ theme.department }}</td>
+              <td>{{ theme.course }}</td>
+              <td>
+                <a href="{% url 'theme_detail' theme.pk %}" class="m-3"><i class="bi bi-eye"></i></a>
+                <a href="{% url 'update_theme' theme.pk %}" class="m-3"><i class="bi bi-pencil-square"></i></a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock main_content %}
